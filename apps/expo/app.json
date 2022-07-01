@@ -1,13 +1,36 @@
 {
   "expo": {
-    "name": "solito-blank",
-    "slug": "solito-blank",
+    "owner": "jobtion",
+    "name": "Jobtion",
+    "slug": "Jobtion",
     "version": "1.0.0",
-    "sdkVersion": "44.0.0",
-    "scheme": "solito-blank",
-    "platforms": ["ios", "android"],
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "jobtion",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./assets/images/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#000"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": ["**/*"],
     "ios": {
-      "bundleIdentifier": "com.solito.blank"
-    }
-  }
+      "supportsTablet": true,
+      "usesIcloudStorage": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "backgroundColor": "#000"
+      }
+    },
+    "web": {
+      "favicon": "./assets/images/favicon.png"
+    },
+    "sdkVersion": "44.0.0"
+  },
+  "name": "jobtion"
 }

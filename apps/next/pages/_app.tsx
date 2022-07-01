@@ -3,22 +3,19 @@ import Head from 'next/head'
 import React from 'react'
 import type { SolitoAppProps } from 'solito'
 import 'raf/polyfill'
+import Layout from '../components/layout'
+import { NavBar } from 'app/components/navbar'
 
 function MyApp({ Component, pageProps }: SolitoAppProps) {
+  // const getLayout = Component.getLayout || ((page) => page)
+
   return (
     <>
-      <Head>
-        <title>Solito web App</title>
-        <meta
-          name="description"
-          content="Expo + Next.js with Solito. By Fernando Rojo."
-        />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
       <Provider>
-        <>
-          <Component {...pageProps} />
-        </>
+        {/* <Layout> */}
+        <NavBar />
+        <Component {...pageProps} />
+        {/* </Layout> */}
       </Provider>
     </>
   )
