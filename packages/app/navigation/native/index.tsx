@@ -9,12 +9,13 @@ import { BusinessAuthScreen } from 'app/features/auth/business'
 import { useContext, useEffect } from 'react'
 import { AuthContext } from 'app/provider/contexts/auth/AuthContext'
 import { LikeScreen } from 'app/features/like/screen'
+import { JobScreen } from 'app/features/job/screen'
 
 const Stack = createNativeStackNavigator<{
   auth: undefined
   businessRoot: undefined
   'user-detail': { id: string }
-  // candidateRoot: undefined
+  candidateRoot: undefined
 }>()
 
 export function NativeNavigation() {
@@ -31,11 +32,10 @@ export function NativeNavigation() {
     >
       {!!!authUser?._id ? (
         <Stack.Screen name="auth" component={AuthNavigation} />
+      ) : authUser?.role === 'business' ? (
+        <Stack.Screen name="businessRoot" component={BusinessRootTab} />
       ) : (
-        authUser?.role === 'business' && (
-          <Stack.Screen name="businessRoot" component={BusinessRootTab} />
-          // ) : (
-        )
+        <Stack.Screen name="candidateRoot" component={CandidateRootTab} />
       )}
       <Stack.Screen name="user-detail" component={UserDetailScreen} />
       {/* <Stack.Screen name="candidateRoot" component={CandidateRootTab} /> */}
@@ -93,13 +93,14 @@ function BusinessRootTab() {
   )
 }
 
-// const CandidateTab = createBottomTabNavigator()
+const CandidateTab = createBottomTabNavigator()
 
-// function CandidateRootTab() {
-//   return (
-//     <CandidateTab.Navigator>
-//       <CandidateTab.Screen name="home" component={HomeScreen} />
-//       <CandidateTab.Screen name="user-detail" component={UserDetailScreen} />
-//     </CandidateTab.Navigator>
-//   )
-// }
+function CandidateRootTab() {
+  return (
+    <CandidateTab.Navigator>
+      <CandidateTab.Screen name="home" component={HomeScreen} />
+      <CandidateTab.Screen name="job" component={JobScreen} />
+      <CandidateTab.Screen name="user-detail" component={UserDetailScreen} />
+    </CandidateTab.Navigator>
+  )
+}

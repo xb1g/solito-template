@@ -1,3 +1,4 @@
+import { JobList } from 'app/components/job-list'
 import { Text, useSx, View, H1, P, Row, A } from 'dripsy'
 import { Link, TextLink } from 'solito/link'
 import { MotiLink } from 'solito/moti'
@@ -16,7 +17,8 @@ export function HomeScreen() {
         // padding: ['$0', '$2', '$4', '$6'],
       }}
     >
-      <Link href="/about">
+      <JobList jobs={[{ title: 'SJI' }, { title: 'ASDAD' }]} />
+      {/* <Link href="/about">
         <H1 sx={{ fontWeight: '800' }}>Welcome to Solito.</H1>
       </Link>
       <View sx={{ maxWidth: 600 }}>
@@ -52,29 +54,30 @@ export function HomeScreen() {
           profile
         </TextLink>
         <View sx={{ width: 32 }} />
-        <MotiLink
-          href="/user/fernando"
-          animate={({ hovered, pressed }) => {
-            'worklet'
+       
+      </Row> */}
+      <MotiLink
+        href="/user/fernando"
+        animate={({ hovered, pressed }) => {
+          'worklet'
 
-            return {
-              scale: pressed ? 0.95 : hovered ? 1.1 : 1,
-              rotateZ: pressed ? '0deg' : hovered ? '-3deg' : '0deg',
-            }
-          }}
-          transition={{
-            type: 'timing',
-            duration: 150,
-          }}
+          return {
+            scale: pressed ? 0.95 : hovered ? 1.1 : 1,
+            rotateZ: pressed ? '0deg' : hovered ? '-3deg' : '0deg',
+          }
+        }}
+        transition={{
+          type: 'timing',
+          duration: 150,
+        }}
+      >
+        <Text
+          selectable={false}
+          sx={{ fontSize: 16, color: '$secondary', fontWeight: 'bold' }}
         >
-          <Text
-            selectable={false}
-            sx={{ fontSize: 16, color: 'black', fontWeight: 'bold' }}
-          >
-            Moti Link
-          </Text>
-        </MotiLink>
-      </Row>
+          Moti Link
+        </Text>
+      </MotiLink>
     </View>
   )
 }

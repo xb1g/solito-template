@@ -19,6 +19,7 @@ export function NavigationProvider({
               businessAuth: 'businessAuth',
               candidateAuth: 'candidateAuth',
               profile: 'profile',
+              job: 'jobs/:id',
               'user-detail': 'user/:id',
             },
           },

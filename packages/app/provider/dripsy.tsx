@@ -70,7 +70,7 @@ const lightTheme = {
 
 export function Dripsy({ children }: { children: React.ReactNode }) {
   const colorMode = useColorScheme()
-  console.log(colorMode, 'cm')
+  // console.log(colorMode, 'cm')
   return (
     <DripsyProvider
       theme={colorMode == 'dark' ? darkTheme : lightTheme}
