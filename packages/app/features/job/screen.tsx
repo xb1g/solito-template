@@ -1,3 +1,4 @@
+import { SafeTop } from 'app/components/safe-area'
 import { Text, View } from 'dripsy'
 import { createParam } from 'solito'
 
@@ -11,6 +12,7 @@ export function JobScreen() {
   const [id] = useParam('id')
   return (
     <View>
+      <SafeTop />
       <Text>Job Screen, {id}</Text>
       <Text
         sx={{ textAlign: 'center', mb: 16, fontWeight: 'bold' }}

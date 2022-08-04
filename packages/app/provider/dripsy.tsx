@@ -5,8 +5,12 @@ const darkColors = {
   $text: 'white',
   $text2: 'white',
   $background: 'black',
+  $background2: '#1D1D1D',
+  $background3: '#444444',
+
   $primary: '#0070f3',
   $secondary: '#ff4081',
+  $tertiary: '#ff4081',
 }
 
 const space = {
@@ -38,6 +42,10 @@ const darkTheme = makeTheme({
   h1: {
     color: '$text',
   },
+  h2: {
+    color: '$text',
+    my: '$0',
+  },
   p: {
     color: '$text',
   },
@@ -47,6 +55,9 @@ const darkTheme = makeTheme({
   box: {
     backgroundColor: '$background',
     borderRadius: '0.5rem',
+  },
+  linearGradients: {
+    fade: ['$background', 'rgba(0, 0, 0, 0)'],
   },
 })
 
@@ -59,8 +70,12 @@ const lightColors: typeof darkColors = {
   $text: 'black',
   $text2: '#222',
   $background: 'white',
+  $background2: '#fafafa',
+  $background3: '#fafafa',
+
   $primary: 'blue',
   $secondary: 'red',
+  $tertiary: 'red',
 }
 
 const lightTheme = {

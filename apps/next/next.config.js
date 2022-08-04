@@ -6,6 +6,7 @@ const nextConfig = {
 
 const { withExpo } = require('@expo/next-adapter')
 const withPlugins = require('next-compose-plugins')
+const withFonts = require('next-fonts')
 const withTM = require('next-transpile-modules')([
   'solito',
   'dripsy',
@@ -14,10 +15,13 @@ const withTM = require('next-transpile-modules')([
   'moti',
   '@motify/core',
   '@motify/components',
+  // '@expo/vector-icons',
+  '@showtime-xyz/universal.icon',
+  // '@showtime-xyz/universal.switch',
   'app',
 ])
 
 module.exports = withPlugins(
-  [withTM, [withExpo, { projectRoot: __dirname }]],
+  [withTM, withFonts, [withExpo, { projectRoot: __dirname }]],
   nextConfig
 )

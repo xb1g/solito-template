@@ -2,6 +2,7 @@
   "dependencies": {
     "@react-native-async-storage/async-storage": "~1.15.0",
     "@react-navigation/bottom-tabs": "^6.3.1",
+    "@showtime-xyz/universal.switch": "^0.0.22",
     "app": "*",
     "expo": "^44.0.0",
     "expo-auth-session": "~3.5.0",

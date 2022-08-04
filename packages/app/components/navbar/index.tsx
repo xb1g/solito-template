@@ -1,9 +1,13 @@
-import { Box, H1, H2, H3, TextInput, View } from 'dripsy'
+// import { Search } from '@showtime-xyz/universal.icon'
+import { Box, H1, H2, H3, Row, TextInput, View } from 'dripsy'
 import React from 'react'
 import { Link } from 'solito/link'
-import { CenteredRow } from '../row'
+import { useRouter } from 'solito/router'
+
+// import { Switch } from '@showtime-xyz/universal.switch'
 
 export function NavBar() {
+  const { push } = useRouter()
   return (
     <View
       sx={{
@@ -15,30 +19,33 @@ export function NavBar() {
         bg: '$primary',
       }}
     >
-      <CenteredRow>
-        <Link href="/">
-          <H1 sx={{ color: '$text' }}>Jobtion</H1>
-        </Link>
+      <Link href="/">
+        <H1 sx={{ color: '$text' }}>Jobtion</H1>
+      </Link>
 
-        <View
+      <View
+        sx={{
+          display: 'flex',
+          flexDirection: 'row',
+          paddingLeft: '$4',
+        }}
+      >
+        {/* <Search />
+        <Switch checked={false} onChange={() => null} /> */}
+        <TextInput
           sx={{
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center',
-            paddingLeft: '$4',
-            // bg: '$secondary',
-            // paddingX: '1rem',
+            width: '100px',
+            height: '28px',
+            borderRadius: '$4',
+            bg: '$background2',
+            color: '$text',
           }}
-        >
-          <Link href="/profile">
-            <H3 sx={{ color: '$text', paddingX: '$2' }}>Profile</H3>
-          </Link>
-          <Link href="/like">
-            <H3 sx={{ color: '$text', paddingX: '$2' }}>like</H3>
-          </Link>
-        </View>
-      </CenteredRow>
-      <TextInput sx={{ width: '100px', height: '28px' }} />
+          onSubmitEditing={(e) => {
+            console.log(e.nativeEvent.text)
+            push('/search/' + e.nativeEvent.text)
+          }}
+        />
+      </View>
     </View>
   )
 }

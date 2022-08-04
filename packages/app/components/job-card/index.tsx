@@ -1,77 +1,76 @@
 import { Job } from 'app/types'
-import { Image, Pressable, Row, Text, View } from 'dripsy'
+import { Box, H2, Image, P, Pressable, Row, Text, View } from 'dripsy'
 import { Link } from 'solito/link'
 import { MotiLink } from 'solito/moti'
+import { Gradient } from '@dripsy/gradient'
 
 export const JobCard = ({ job }: { job: Job }) => {
   return (
     <MotiLink
       href={`/jobs/${job.title}`}
-      animate={({ pressed }) => {
+      animate={({ pressed, hovered }) => {
         'worklet'
         return {
-          scale: pressed ? 0.9 : 1,
+          scale: pressed ? 0.9 : hovered ? 1.05 : 1,
+          // rotateZ: pressed ? '0deg' : hovered ? '4deg' : '0deg',
         }
       }}
       onPress={() => console.log(`/jobs/${job.title}`)}
     >
-      <View>
-        {/* <IconButton
-            style={
-              job.like
-                ? {
-                    position: "absolute",
-                    zIndex: 200,
-                    top: 10,
-                    right: 10,
-                    ...shadow.glow1,
-                  }
-                : {
-                    position: "absolute",
-                    zIndex: 200,
-                    top: 10,
-                    right: 10,
-                    ...shadow.glow0,
-                  }
-            }
-            color={job.like ? "#FADDFC" : "white"}
-            size={40}
-            name="heart"
-            onPress={() => {
-              // job.like = !job.like;
-              console.log("like and change color");
-            }}
-          /> */}
-
+      <View
+        sx={{
+          margin: 10,
+          width: 300,
+          borderRadius: 30,
+          backgroundColor: '$primary',
+        }}
+      >
         <View>
-          {/* <LinearGradient
-            // Background Linear Gradient
-            colors={[
-              'transparent',
-              'transparent',
-              'transparent',
-              'transparent',
-              '#00000040',
-              '#000000ca',
-            ]}
-            style={[styles.image, { position: 'absolute', zIndex: 4 }]}
-          /> */}
-          <Text>THB {job.salary}</Text>
+          <Gradient
+            gradient="fade"
+            sx={{
+              position: 'absolute',
+              zIndex: 1,
+              width: '100%',
+              height: 200,
+              borderRadius: 30,
+              overflow: 'hidden',
+            }}
+          />
+          <H2
+            sx={{
+              position: 'absolute',
+              zIndex: 90,
+              marginLeft: 10,
+              bottom: 5,
+              color: '#fff',
+            }}
+          >
+            THB {job.salary}
+          </H2>
           <Image
             resizeMode="cover"
             source={{
-              //   uri: job?.images[0],
-              uri: 'https://yt3.ggpht.com/fFA7ivGH9xb_hM06HQiW0qN9qJbW_npZOZ8wXeV8J4NNDyCgd425lKoCVzGbqhB16iUysePI8MP0=s1012-c-fcrop64=1,0000130effffecf1-nd-v1',
+              uri:
+                job?.images[0] ||
+                'https://yt3.ggpht.com/fFA7ivGH9xb_hM06HQiW0qN9qJbW_npZOZ8wXeV8J4NNDyCgd425lKoCVzGbqhB16iUysePI8MP0=s1012-c-fcrop64=1,0000130effffecf1-nd-v1',
             }}
-            // alt="job"
+            alt="job"
+            sx={{
+              width: 300,
+              height: 300,
+              borderRadius: 30,
+            }}
           />
         </View>
-        <Row>
-          <Pressable
-            onPress={() => {
-              navigation.navigate('BusinessProfile', { id: job.business.id })
-            }}
-          >
+        <Row
+          sx={{
+            margin: 10,
+            width: 300,
+            borderRadius: 30,
+          }}
+        >
+          <Link href={`/jobs/${job.title}`}>
             {/* <CircularProgressBase
                 value={20}
                 activeStrokeColor={"#2465FD"}
@@ -86,22 +85,30 @@ export const JobCard = ({ job }: { job: Job }) => {
                   ? job.business.profileImage
                   : 'https://i.ytimg.com/vi/EhFYlrjjtmI/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCzr9g-8ou41KidJ0F9Y2qZt-Xgfw',
               }}
+              sx={{
+                width: 60,
+                height: 60,
+                borderRadius: 30,
+                marginRight: 10,
+              }}
+              alt="job"
               //   style={styles.profileImage}
             />
             {/* </CircularProgressBase> */}
-          </Pressable>
-          <View>
-            <View />
-            <Text>{job.title}</Text>
-            <Text
-              style={{
+          </Link>
+          <Box>
+            <H2 sx={{ maxWidth: '92%', marginY: 0 }}>{job.title}</H2>
+            <P
+              sx={{
                 maxWidth: '92%',
+                color: '$text',
+                marginY: 0,
               }}
             >
               {(job.business && job.business.companyName) || '...'},{' '}
               {(job.business && job.business.location) || 'location'}
-            </Text>
-          </View>
+            </P>
+          </Box>
         </Row>
       </View>
     </MotiLink>

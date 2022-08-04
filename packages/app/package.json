@@ -4,8 +4,11 @@
   "main": "index.ts",
   "dependencies": {
     "@dripsy/gradient": "^3.6.0",
+    "@expo/vector-icons": "^13.0.0",
     "@react-navigation/native": "^6.0.8",
     "@react-navigation/native-stack": "^6.5.0",
+    "@showtime-xyz/universal.icon": "^0.0.29",
+    "@showtime-xyz/universal.switch": "^0.0.22",
     "axios": "^0.27.2",
     "dripsy": "^3.6.0",
     "expo-linking": "^3.0.0",

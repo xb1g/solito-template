@@ -6,10 +6,12 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { ProfileScreen } from 'app/features/profile/screen'
 import { BusinessAuthScreen } from 'app/features/auth/business'
-import { useContext, useEffect } from 'react'
+import { useContext, useEffect, useLayoutEffect } from 'react'
 import { AuthContext } from 'app/provider/contexts/auth/AuthContext'
 import { LikeScreen } from 'app/features/like/screen'
 import { JobScreen } from 'app/features/job/screen'
+import SearchScreen from '../../../../apps/next/pages/search/[q]'
+import { H1, Text, View } from 'dripsy'
 
 const Stack = createNativeStackNavigator<{
   auth: undefined
@@ -37,7 +39,7 @@ export function NativeNavigation() {
       ) : (
         <Stack.Screen name="candidateRoot" component={CandidateRootTab} />
       )}
-      <Stack.Screen name="user-detail" component={UserDetailScreen} />
+      {/* <Stack.Screen name="user-detail" component={UserDetailScreen} /> */}
       {/* <Stack.Screen name="candidateRoot" component={CandidateRootTab} /> */}
     </Stack.Navigator>
   )
@@ -60,10 +62,12 @@ export function AuthNavigation() {
     </AuthStack.Navigator>
   )
 }
+
 const BusinessTab = createBottomTabNavigator<{
   home: undefined
   profile: undefined
   like: undefined
+  search: undefined
 }>()
 
 function BusinessRootTab() {
@@ -86,10 +90,59 @@ function BusinessRootTab() {
         },
       }}
     >
-      <BusinessTab.Screen name="home" component={HomeScreen} />
+      <BusinessTab.Screen name="home" component={HomeNavigator} />
       <BusinessTab.Screen name="profile" component={ProfileScreen} />
       <BusinessTab.Screen name="like" component={LikeScreen} />
+      <BusinessTab.Screen name="search" component={SearchScreen} />
+      <BusinessTab.Screen name="job" component={JobScreen} />
     </BusinessTab.Navigator>
+  )
+}
+
+const HomeStack = createNativeStackNavigator()
+
+function HomeNavigator() {
+  const insets = useSafeArea()
+  const tabHiddenRoutes = ['Job', 'Apply']
+
+  // useLayoutEffect(() => {
+  //   if (tabHiddenRoutes.includes(getFocusedRouteNameFromRoute(route)!)) {
+  //     navigation.setOptions({ tabBarStyle: { display: 'none' } })
+  //   } else {
+  //     navigation.setOptions({
+  //       tabBarStyle: {
+  //         position: 'absolute',
+  //         marginBottom: 10 + insets.bottom,
+  //         marginHorizontal: 30,
+  //         borderRadius: 150,
+  //         borderWidth: 0,
+  //         // alignItems: "center",
+  //         backgroundColor:
+  //           colorScheme === 'dark'
+  //             ? Colors.dark.candidate.bottomBar
+  //             : Colors.light.candidate.bottomBar,
+  //         paddingBottom: 0,
+
+  //         ...shadow.shadowIn,
+  //         borderTopWidth: 0,
+  //         borderTopColor: 'transparent',
+  //       },
+  //     })
+  //   }
+  // }, [navigation, route])
+
+  return (
+    <HomeStack.Navigator
+      defaultScreenOptions={{
+        headerShown: false,
+      }}
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <HomeStack.Screen name="Home" component={HomeScreen} />
+      <HomeStack.Screen name="Job" component={JobScreen} />
+    </HomeStack.Navigator>
   )
 }
 
@@ -101,6 +154,7 @@ function CandidateRootTab() {
       <CandidateTab.Screen name="home" component={HomeScreen} />
       <CandidateTab.Screen name="job" component={JobScreen} />
       <CandidateTab.Screen name="user-detail" component={UserDetailScreen} />
+      <CandidateTab.Screen name="like" component={LikeScreen} />
     </CandidateTab.Navigator>
   )
 }
