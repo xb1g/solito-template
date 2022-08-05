@@ -13,6 +13,7 @@ const darkColors = {
   $tertiary: '#ff4081',
 }
 
+export type Color = keyof typeof darkColors
 const space = {
   // recommended: set 0 first, then double for consistent nested spacing
   $0: 0,

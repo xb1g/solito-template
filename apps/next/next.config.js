@@ -15,8 +15,8 @@ const withTM = require('next-transpile-modules')([
   'moti',
   '@motify/core',
   '@motify/components',
-  // '@expo/vector-icons',
-  '@showtime-xyz/universal.icon',
+  '@expo/vector-icons',
+  // '@showtime-xyz/universal.icon',
   // '@showtime-xyz/universal.switch',
   'app',
 ])

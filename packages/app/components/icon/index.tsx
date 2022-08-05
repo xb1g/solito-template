@@ -1,84 +1,89 @@
-// import React from 'react'
-// import Icon from '@expo/vector-icons/build/Ionicons'
-// import { styled, useDripsyTheme as useTheme } from 'dripsy'
+import React from 'react'
+import Icon from '@expo/vector-icons/build/Ionicons'
+import { styled, useDripsyTheme as useTheme } from 'dripsy'
+import { Color } from 'app/provider/dripsy'
 
-// const StyledIcon = styled(Icon)({})
+const StyledIcon = styled(Icon)({})
 
 // type Color = (string & {}) | keyof ReturnType<typeof useTheme>['colors']
-// type Name = React.ComponentProps<typeof StyledIcon>['name']
+type Name = React.ComponentProps<typeof StyledIcon>['name']
+// type Color = string | keyof ReturnType<typeof useTheme>['colors']
 
-// type Icon =
-//   | {
-//       name: Name
-//       size?: number
-//       color?: Color
-//     }
-//   | React.ReactElement
-//   | Name
+type Icon =
+  | {
+      name: Name
+      size?: number
+      color?: Color
+    }
+  | React.ReactElement
+  | Name
 
-// type BaseProps = {
-//   size?: number
-//   color?: Color
-//   name: Name
-// }
-// export type IconProps = {
-//   icon: Icon
-// }
+type BaseProps = {
+  size?: number
+  color?: Color
+  name: Name
+}
+export type IconProps = {
+  icon: Icon
+}
 
-// export type IconsBaseProps = BaseProps
+export type IconsBaseProps = BaseProps
 
-// export type AllIconProps = (IconProps | BaseProps) & {
-//   sx?: React.ComponentProps<typeof StyledIcon>['sx']
-//   selectable?: boolean
-// }
+export type AllIconProps = (IconProps | BaseProps) & {
+  sx?: React.ComponentProps<typeof StyledIcon>['sx']
+  selectable?: boolean
+}
 
-// function isIconProps(props: AllIconProps): props is IconProps {
-//   return !!(props as IconProps).icon
-// }
+function isIconProps(props: AllIconProps): props is IconProps {
+  return !!(props as IconProps).icon
+}
 
-// export default function Ionicons(props: AllIconProps) {
-//   const { theme } = useTheme()
+export default function Ionicons(props: AllIconProps) {
+  const { theme } = useTheme()
+  const { colors } = theme
 
-//   let icon: Icon | undefined
-//   let color: Color = colors.text
+  let icon: Icon | undefined
+  console.log(Object.keys(colors), 'colors')
 
-//   if (isIconProps(props)) {
-//     icon = props.icon
-//   } else {
-//     icon = {
-//       name: props.name,
-//       color: props.color,
-//       size: props.size,
-//     }
-//   }
+  let color: Color = colors.$text
 
-//   if (React.isValidElement(icon)) {
-//     return icon
-//   }
-//   // this exists for conditional props
-//   if (typeof icon === 'boolean') return null
+  if (isIconProps(props)) {
+    icon = props.icon
+  } else {
+    icon = {
+      name: props.name,
+      color: props.color,
+      size: props.size,
+    }
+  }
 
-//   let name: React.ComponentProps<typeof StyledIcon>['name'] | null = null
-//   let size = 22
-//   if (typeof icon === 'string') {
-//     name = icon as React.ComponentProps<typeof StyledIcon>['name']
-//   } else if (icon?.name) {
-//     name = icon.name
-//     if (icon.size) size = icon.size
-//     if (icon.color) {
-//       color = colors?.[icon.color] ?? icon.color
-//     }
-//   }
+  if (React.isValidElement(icon)) {
+    return icon
+  }
+  // this exists for conditional props
+  if (typeof icon === 'boolean') return null
 
-//   if (!name) return null
+  let name: React.ComponentProps<typeof StyledIcon>['name'] | null = null
+  let size = 22
+  if (typeof icon === 'string') {
+    name = icon as React.ComponentProps<typeof StyledIcon>['name']
+  } else if (icon?.name) {
+    name = icon.name
+    if (icon.size) size = icon.size
+    if (icon.color) {
+      color = colors?.[icon.color] ?? icon.color
+    }
+  }
 
-//   return (
-//     <StyledIcon
-//       {...props}
-//       color={color}
-//       size={size}
-//       name={name}
-//       sx={props.sx}
-//     />
-//   )
-// }
+  if (!name) return null
+
+  return (
+    <StyledIcon
+      {...props}
+      color={color}
+      size={size}
+      name={name}
+      sx={props.sx}
+    />
+  )
+}

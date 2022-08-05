@@ -1,8 +1,10 @@
+import Ionicons from 'app/components/icon'
 import { JobList } from 'app/components/job-list'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { Text, useSx, View, H1, P, Row, A, ScrollView } from 'dripsy'
 import { Link, TextLink } from 'solito/link'
 import { MotiLink } from 'solito/moti'
+// import IonIcons from '@expo/vector-icons/Ionicons'
 // import { Search } from '@showtime-xyz/universal.icon'
 
 export function HomeScreen() {
@@ -11,7 +13,7 @@ export function HomeScreen() {
   console.log(insets)
 
   return (
-    <View sx={{ flex: 1, bg: 'red' }}>
+    <View sx={{ flex: 1, bg: '$primary' }}>
       <ScrollView
         sx={{
           flex: 1,
@@ -19,10 +21,9 @@ export function HomeScreen() {
           backgroundColor: '$background',
         }}
       >
-        {/* <Search /> */}
-        <View sx={{ width: 200, height: 1000, bg: '$background2' }} />
+        <Ionicons name="alert" size={64} color="$tertiary" />
         <H1>For you</H1>
-        <JobList
+        {/* <JobList
           jobs={[
             {
               _id: '62bb04314afb5c5ea6ef1c7c',
@@ -410,7 +411,7 @@ export function HomeScreen() {
               __v: 0,
             },
           ]}
-        />
+        /> */}
       </ScrollView>
     </View>
   )

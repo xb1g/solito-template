@@ -13,12 +13,13 @@ import { JobScreen } from 'app/features/job/screen'
 import SearchScreen from '../../../../apps/next/pages/search/[q]'
 import { H1, Text, View } from 'dripsy'
 
-const Stack = createNativeStackNavigator<{
-  auth: undefined
-  businessRoot: undefined
-  'user-detail': { id: string }
-  candidateRoot: undefined
-}>()
+const Stack =
+  createNativeStackNavigator<{
+    auth: undefined
+    businessRoot: undefined
+    'user-detail': { id: string }
+    candidateRoot: undefined
+  }>()
 
 export function NativeNavigation() {
   const { authUser } = useContext(AuthContext)
@@ -45,10 +46,11 @@ export function NativeNavigation() {
   )
 }
 
-const AuthStack = createNativeStackNavigator<{
-  businessAuth: undefined
-  candidateAuth: undefined
-}>()
+const AuthStack =
+  createNativeStackNavigator<{
+    businessAuth: undefined
+    candidateAuth: undefined
+  }>()
 
 export function AuthNavigation() {
   return (
@@ -63,38 +65,55 @@ export function AuthNavigation() {
   )
 }
 
-const BusinessTab = createBottomTabNavigator<{
-  home: undefined
-  profile: undefined
-  like: undefined
-  search: undefined
-}>()
+const BusinessTab =
+  createBottomTabNavigator<{
+    home: undefined
+    profile: undefined
+    like: undefined
+    search: undefined
+  }>()
 
 function BusinessRootTab() {
   const insets = useSafeArea()
   return (
     <BusinessTab.Navigator
       screenOptions={{
-        headerShown: false,
+        tabBarShowLabel: false,
+        tabBarBadgeStyle: {},
+        // tabBarLabelPosition: "beside-icon",
         tabBarStyle: {
           position: 'absolute',
-          // marginBottom: 10 + insets.bottom,
-          // marginHorizontal: 20,
-          // borderRadius: 30,
-          // borderWidth: 0,
-          backgroundColor: '#aaa',
-          // paddingBottom: 0,
-
+          marginBottom: 10 + insets.bottom,
+          marginHorizontal: 20,
+          borderRadius: 30,
+          borderWidth: 0,
+          // backgroundColor:
+          //   colorScheme === 'dark'
+          //     ? Colors.dark.business.bottomBar
+          //     : Colors.light.business.bottomBar,
+          paddingBottom: 0,
           borderTopWidth: 0,
           borderTopColor: 'transparent',
         },
+        headerShown: false,
+        // tabBarActiveTintColor: Colors[colorScheme].business.tint,
       }}
     >
-      <BusinessTab.Screen name="home" component={HomeNavigator} />
+      <BusinessTab.Screen
+        name="home"
+        component={HomeNavigator}
+        options={
+          {
+            // tabBarIcon: ({ color }) => (
+            //   <IonIcons name="home" size={24} color={color} />
+            // ),
+          }
+        }
+      />
       <BusinessTab.Screen name="profile" component={ProfileScreen} />
       <BusinessTab.Screen name="like" component={LikeScreen} />
       <BusinessTab.Screen name="search" component={SearchScreen} />
-      <BusinessTab.Screen name="job" component={JobScreen} />
+      {/* <BusinessTab.Screen name="job" component={JobScreen} /> */}
     </BusinessTab.Navigator>
   )
 }
