@@ -1,31 +1,29 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
 import { HomeScreen } from '../../features/home/screen'
-import { UserDetailScreen } from '../../features/user/detail-screen'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { ProfileScreen } from 'app/features/profile/screen'
-import { BusinessAuthScreen } from 'app/features/auth/business'
+import { AuthScreen } from 'app/features/auth'
 import { useContext, useEffect, useLayoutEffect } from 'react'
 import { AuthContext } from 'app/provider/contexts/auth/AuthContext'
-import { LikeScreen } from 'app/features/like/screen'
-import { JobScreen } from 'app/features/job/screen'
 import SearchScreen from '../../../../apps/next/pages/search/[q]'
-import { H1, Text, View } from 'dripsy'
+import { H1, Text, useDripsyTheme, View } from 'dripsy'
+import Ionicons from 'app/components/icon'
+import {
+  getFocusedRouteNameFromRoute,
+  useNavigation,
+  useRoute,
+} from '@react-navigation/native'
 
 const Stack =
   createNativeStackNavigator<{
     auth: undefined
-    businessRoot: undefined
-    'user-detail': { id: string }
-    candidateRoot: undefined
+    root: undefined
   }>()
 
 export function NativeNavigation() {
   const { authUser } = useContext(AuthContext)
-  useEffect(() => {
-    console.log('ROLE changed', authUser?.role, !!authUser?._id)
-  }, [authUser])
 
   return (
     <Stack.Navigator
@@ -35,21 +33,16 @@ export function NativeNavigation() {
     >
       {!!!authUser?._id ? (
         <Stack.Screen name="auth" component={AuthNavigation} />
-      ) : authUser?.role === 'business' ? (
-        <Stack.Screen name="businessRoot" component={BusinessRootTab} />
       ) : (
-        <Stack.Screen name="candidateRoot" component={CandidateRootTab} />
+        <Stack.Screen name="root" component={RootTab} />
       )}
-      {/* <Stack.Screen name="user-detail" component={UserDetailScreen} /> */}
-      {/* <Stack.Screen name="candidateRoot" component={CandidateRootTab} /> */}
     </Stack.Navigator>
   )
 }
 
 const AuthStack =
   createNativeStackNavigator<{
-    businessAuth: undefined
-    candidateAuth: undefined
+    authScreen: undefined
   }>()
 
 export function AuthNavigation() {
@@ -59,62 +52,69 @@ export function AuthNavigation() {
         headerShown: false,
       }}
     >
-      <AuthStack.Screen name="businessAuth" component={BusinessAuthScreen} />
-      {/* <AuthStack.Screen name="candidateAuth" component={CandidateAuthScreen} /> */}
+      <AuthStack.Screen name="authScreen" component={AuthScreen} />
     </AuthStack.Navigator>
   )
 }
 
-const BusinessTab =
+const BottomTab =
   createBottomTabNavigator<{
     home: undefined
     profile: undefined
-    like: undefined
     search: undefined
   }>()
 
-function BusinessRootTab() {
+function RootTab() {
   const insets = useSafeArea()
+  const { theme } = useDripsyTheme()
+  // console.log(theme)
   return (
-    <BusinessTab.Navigator
+    <BottomTab.Navigator
       screenOptions={{
         tabBarShowLabel: false,
-        tabBarBadgeStyle: {},
-        // tabBarLabelPosition: "beside-icon",
         tabBarStyle: {
           position: 'absolute',
           marginBottom: 10 + insets.bottom,
           marginHorizontal: 20,
-          borderRadius: 30,
+          borderRadius: 20,
           borderWidth: 0,
-          // backgroundColor:
-          //   colorScheme === 'dark'
-          //     ? Colors.dark.business.bottomBar
-          //     : Colors.light.business.bottomBar,
+          backgroundColor: theme.colors.$background2,
           paddingBottom: 0,
           borderTopWidth: 0,
           borderTopColor: 'transparent',
         },
         headerShown: false,
-        // tabBarActiveTintColor: Colors[colorScheme].business.tint,
+        tabBarActiveTintColor: theme.colors.$primary,
       }}
     >
-      <BusinessTab.Screen
+      <BottomTab.Screen
         name="home"
         component={HomeNavigator}
-        options={
-          {
-            // tabBarIcon: ({ color }) => (
-            //   <IonIcons name="home" size={24} color={color} />
-            // ),
-          }
-        }
+        options={{
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="home" size={24} color={color} />
+          ),
+        }}
       />
-      <BusinessTab.Screen name="profile" component={ProfileScreen} />
-      <BusinessTab.Screen name="like" component={LikeScreen} />
-      <BusinessTab.Screen name="search" component={SearchScreen} />
-      {/* <BusinessTab.Screen name="job" component={JobScreen} /> */}
-    </BusinessTab.Navigator>
+      <BottomTab.Screen
+        name="profile"
+        component={ProfileScreen}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="person" size={24} color={color} />
+          ),
+        }}
+      />
+      <BottomTab.Screen
+        name="search"
+        component={SearchScreen}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="search" size={24} color={color} />
+          ),
+        }}
+      />
+    </BottomTab.Navigator>
   )
 }
 
@@ -122,33 +122,9 @@ const HomeStack = createNativeStackNavigator()
 
 function HomeNavigator() {
   const insets = useSafeArea()
-  const tabHiddenRoutes = ['Job', 'Apply']
-
-  // useLayoutEffect(() => {
-  //   if (tabHiddenRoutes.includes(getFocusedRouteNameFromRoute(route)!)) {
-  //     navigation.setOptions({ tabBarStyle: { display: 'none' } })
-  //   } else {
-  //     navigation.setOptions({
-  //       tabBarStyle: {
-  //         position: 'absolute',
-  //         marginBottom: 10 + insets.bottom,
-  //         marginHorizontal: 30,
-  //         borderRadius: 150,
-  //         borderWidth: 0,
-  //         // alignItems: "center",
-  //         backgroundColor:
-  //           colorScheme === 'dark'
-  //             ? Colors.dark.candidate.bottomBar
-  //             : Colors.light.candidate.bottomBar,
-  //         paddingBottom: 0,
-
-  //         ...shadow.shadowIn,
-  //         borderTopWidth: 0,
-  //         borderTopColor: 'transparent',
-  //       },
-  //     })
-  //   }
-  // }, [navigation, route])
+  const navigation = useNavigation()
+  const { theme } = useDripsyTheme()
+  const route = useRoute()
 
   return (
     <HomeStack.Navigator
@@ -159,21 +135,7 @@ function HomeNavigator() {
         headerShown: false,
       }}
     >
-      <HomeStack.Screen name="Home" component={HomeScreen} />
-      <HomeStack.Screen name="Job" component={JobScreen} />
+      <HomeStack.Screen name="home-screen" component={HomeScreen} />
     </HomeStack.Navigator>
-  )
-}
-
-const CandidateTab = createBottomTabNavigator()
-
-function CandidateRootTab() {
-  return (
-    <CandidateTab.Navigator>
-      <CandidateTab.Screen name="home" component={HomeScreen} />
-      <CandidateTab.Screen name="job" component={JobScreen} />
-      <CandidateTab.Screen name="user-detail" component={UserDetailScreen} />
-      <CandidateTab.Screen name="like" component={LikeScreen} />
-    </CandidateTab.Navigator>
   )
 }

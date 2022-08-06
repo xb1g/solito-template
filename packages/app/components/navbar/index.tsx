@@ -3,6 +3,7 @@ import { Box, H1, H2, H3, Row, TextInput, View } from 'dripsy'
 import React from 'react'
 import { Link } from 'solito/link'
 import { useRouter } from 'solito/router'
+import Ionicons from '../icon'
 
 // import { Switch } from '@showtime-xyz/universal.switch'
 
@@ -19,29 +20,42 @@ export function NavBar() {
         bg: '$primary',
       }}
     >
-      <Link href="/">
-        <H1 sx={{ color: '$text' }}>Jobtion</H1>
-      </Link>
+      <Row
+        sx={{
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <Link href="/">
+          <H1 sx={{ color: '$text' }}>Solito</H1>
+        </Link>
+        <View sx={{ marginLeft: '$3' }} />
+
+        <Link href="/profile">
+          <H3 sx={{ color: '$text' }}>Profile</H3>
+        </Link>
+      </Row>
 
       <View
         sx={{
-          display: 'flex',
           flexDirection: 'row',
-          paddingLeft: '$4',
+          padding: '$2',
+          ml: '$2',
+          borderRadius: 15,
+          bg: '$background2',
         }}
       >
-        {/* <Search />
-        <Switch checked={false} onChange={() => null} /> */}
+        <Ionicons name="md-search" size={24} color="$text" />
         <TextInput
           sx={{
-            width: '100px',
+            // flex: 1,
+            marginLeft: '$1',
             height: '28px',
             borderRadius: '$4',
-            bg: '$background2',
             color: '$text',
+            margin: '$0',
           }}
           onSubmitEditing={(e) => {
-            console.log(e.nativeEvent.text)
             push('/search/' + e.nativeEvent.text)
           }}
         />

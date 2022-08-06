@@ -32,14 +32,14 @@ export const BusinessContextProvider = ({ children }: Props) => {
   const [jobs, setJobs] = useState<Job[]>([])
 
   useEffect(() => {
-    console.log('candidate context')
+    // console.log('candidate context')
   }, [])
 
   useEffect(() => {
     ;(async () => {
       if (authUser?._id) {
         const data = await getUserData(authUser._id)
-        console.log(data._id, 'id at business context')
+        // console.log(data._id, 'id at business context')
 
         setUserData(data)
         setJobs(data.jobs)
@@ -49,7 +49,7 @@ export const BusinessContextProvider = ({ children }: Props) => {
 
   async function saveUserData(userData: BusinessUser) {
     // setLoading(true);
-    console.log('firsasdasdasdt')
+    // console.log('firsasdasdasdt')
     const res = await saveBusinessData(userData)
       .then((res) => {
         if (res) {
@@ -59,7 +59,7 @@ export const BusinessContextProvider = ({ children }: Props) => {
         }
       })
       .catch((err) => {
-        console.log(err, 'er')
+        // console.log(err, 'er')
         // setLoading(false);
         return err
       })

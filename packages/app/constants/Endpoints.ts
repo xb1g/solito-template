@@ -1,6 +1,9 @@
 // const url = "http://143.198.206.107";
-const url = 'https://jobtion.software'
+const url = 'YOUR_SERVER_URL'
 const endpoints = {
+  signIn: {
+    url: `${url}/api/auth/signin`,
+  },
   uploadImage: {
     // url: "https://goalist.xyz/api/images/upload/",
     url: url + '/upload',

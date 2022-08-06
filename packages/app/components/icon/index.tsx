@@ -43,9 +43,8 @@ export default function Ionicons(props: AllIconProps) {
   const { colors } = theme
 
   let icon: Icon | undefined
-  console.log(Object.keys(colors), 'colors')
 
-  let color: Color = colors.$text
+  let color: Color = colors['$text']
 
   if (isIconProps(props)) {
     icon = props.icon

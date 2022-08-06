@@ -5,28 +5,36 @@ import { Link, TextLink } from 'solito/link'
 import { MotiLink } from 'solito/moti'
 import { useRouter } from 'solito/router'
 import { useDripsyTheme } from 'dripsy'
+import { ScrollView } from 'app/components/scroll-view'
+import MobileSearchTopBar from 'app/components/mobile-top-bar/search'
+import { SafeTop } from 'app/components/safe-area'
 
 export function SearchScreen() {
   const { theme } = useDripsyTheme()
-  console.log(useDripsyTheme, 'colors')
   const { q } = useSearchQuery()
-  console.log('asd', q)
+
+  const [search, setSearch] = useState(q)
+  const onSearch = (q: string) => {
+    console.log(q)
+    setSearch(q)
+  }
 
   return (
-    <View
-      sx={{
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        p: 16,
-        backgroundColor: '$background',
-        // padding: ['$0', '$2', '$4', '$6'],
-      }}
-    >
-      {/* <Ionicons name="ios-search" icon={{ color: '$text', name: 'close' }} /> */}
-      <H1 sx={{ fontWeight: '800' }}>Search, </H1>
-      <H1 sx={{ fontWeight: '800' }}>{q}</H1>
-    </View>
+    <ScrollView>
+      <MobileSearchTopBar onSearch={onSearch} />
+      <View
+        sx={{
+          flex: 1,
+          alignItems: 'center',
+          p: 16,
+          backgroundColor: '$background',
+          // padding: ['$0', '$2', '$4', '$6'],
+        }}
+      >
+        {/* <H1 sx={{ fontWeight: '800' }}>Search, </H1> */}
+        <H1 sx={{ fontWeight: '800' }}>{search}</H1>
+      </View>
+    </ScrollView>
   )
 }
 
@@ -50,7 +58,7 @@ export function SearchDefaultScreen() {
           m: '$3',
         }}
         onSubmitEditing={(value) => {
-          console.log('value', value.nativeEvent.text)
+          // console.log('value', value.nativeEvent.text)
           push('/search/' + value.nativeEvent.text)
           setLoading(true)
         }}

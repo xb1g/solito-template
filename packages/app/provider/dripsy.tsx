@@ -14,6 +14,7 @@ const darkColors = {
 }
 
 export type Color = keyof typeof darkColors
+
 const space = {
   // recommended: set 0 first, then double for consistent nested spacing
   $0: 0,
@@ -44,6 +45,10 @@ const darkTheme = makeTheme({
     color: '$text',
   },
   h2: {
+    color: '$text',
+    my: '$0',
+  },
+  h3: {
     color: '$text',
     my: '$0',
   },
@@ -86,7 +91,7 @@ const lightTheme = {
 
 export function Dripsy({ children }: { children: React.ReactNode }) {
   const colorMode = useColorScheme()
-  // console.log(colorMode, 'cm')
+  // // console.log(colorMode, 'cm')
   return (
     <DripsyProvider
       theme={colorMode == 'dark' ? darkTheme : lightTheme}

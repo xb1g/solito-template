@@ -6,7 +6,7 @@ import { BusinessUser } from './types'
 export async function getUserData(userId: string) {
   const url = endpoints.getBusiness.url + '/' + userId
 
-  console.log(url, 'U')
+  // console.log(url, 'U')
   const res = await axios.get(url)
 
   // const res = await fetch(url, {
@@ -15,7 +15,7 @@ export async function getUserData(userId: string) {
 
   // const data = await res.json();
   const data = res.data
-  console.log(data, 'user data service')
+  // console.log(data, 'user data service')
   return data
 }
 
@@ -23,16 +23,16 @@ export async function getUserData(userId: string) {
 export const saveBusinessData = async (business: BusinessUser) => {
   const url = endpoints.updateBusinessUser.url + '/' + business._id
 
-  console.log(business, 'business saving to db')
-  console.log(url)
+  // console.log(business, 'business saving to db')
+  // console.log(url)
   const data = axios
     .put(url, business)
     .then((res) => {
-      console.log('Got data from saving business')
+      // console.log('Got data from saving business')
       return res.data
     })
     .catch((err) => {
-      console.log('ERR SAVE', err)
+      // console.log('ERR SAVE', err)
 
       return err
     })
