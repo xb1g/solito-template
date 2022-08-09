@@ -44,7 +44,7 @@ export default function Ionicons(props: AllIconProps) {
 
   let icon: Icon | undefined
 
-  let color: Color = colors['$text']
+  let color = colors['$text']
 
   if (isIconProps(props)) {
     icon = props.icon

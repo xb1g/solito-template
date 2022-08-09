@@ -1,5 +1,5 @@
 {
-  "name": "solito-blank",
+  "name": "solito-template",
   "private": true,
   "workspaces": [
     "apps/*",
